@@ -1,0 +1,69 @@
+nav {
+    height: 70px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: auto;
+    background-color: black;
+    max-width: 1000px;
+}
+
+nav .name {
+    text-decoration: none;
+    padding-left: 20px;
+    padding-right: 20px;
+    color: white;
+    font-size: 50px;
+}
+
+nav .nav_but a {
+    text-decoration: none;
+    padding-left: 20px;
+    padding-right: 20px;
+    color: white;
+}
+
+main {
+    height: 700px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+main .title {
+    text-align: center;
+}
+
+main .title img {
+    width: 100px;
+}
+
+main .title h1 {
+    font-size: 40px;
+    color: #444;
+    letter-spacing: 0.2em;
+    margin-bottom: 0;
+}
+
+main .title p {
+    margin-top: 0;
+    margin-bottom: 30px;
+    color: #444;
+}
+
+main .title button {
+    background: black;
+    color: white;
+    border: 2px solid white;
+    border-radius: 5px;
+    padding: 10px 30px;
+    font-size: 14px;
+    transition: 0.5s ease;
+}
+
+main .title button:hover {
+    transition: 0.5s ease;
+    border: 2px sloid black;
+    background: transparent;
+    color: black;
+}

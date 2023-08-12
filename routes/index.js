@@ -1,9 +1,15 @@
-var express = require('express');
+var express = require("express");
 var router = express.Router();
 
+/*Imports modules from controller files */
+const ctrl = require("./control/control.index");
+
 /* GET home page. */
-router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
-});
+router.get("/", ctrl.rend.index);
+
+/**
+ * If GET request arrived => Route to signup page
+ */
+router.get("/signup", ctrl.rend.signup);
 
 module.exports = router;

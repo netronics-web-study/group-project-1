@@ -1,3 +1,5 @@
+const HIDDEN_CLASSNAME = "hidden";
+
 function is_id_valid() {
     var userInput = document.getElementById("user_id").value;
 
@@ -13,16 +15,21 @@ function is_id_valid() {
             var resultMessage = document.getElementById("result_message");
 
             if (data.success) {
+                resultMessage.classList.remove(HIDDEN_CLASSNAME);
                 resultMessage.textContent = "사용 가능한 아이디입니다";
                 resultMessage.style.color = "green";
                 return true;
             } else {
+                resultMessage.classList.remove(HIDDEN_CLASSNAME);
                 resultMessage.textContent = "사용 불가능한 아이디입니다. 다른 아이디를 입력해주세요";
                 resultMessage.style.color = "red";
                 return false;
             }
         })
         .catch((error) => {
+            resultMessage.classList.remove(HIDDEN_CLASSNAME);
+            resultMessage.textContent = "오류가 발생했습니다. 다시 시도해주세요";
+            resultMessage.style.color = "red";
             console.error("Error:", error);
             return false;
         });

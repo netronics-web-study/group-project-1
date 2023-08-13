@@ -5,12 +5,22 @@ var cookieParser = require("cookie-parser");
 var logger = require("morgan");
 
 /**
+ * 호스트 컴퓨터의 mongodb를 사용합니다
+ */
+require("./helpers/init_mongodb");
+
+/**
  * body-parser: 클라이언트의 request로부터 body(실제 사용자가 전달하고자 한 정보, ex. 로그인 정보)를 추출하는 module
  */
 const bodyParser = require("body-parser");
 
-var indexRouter = require("./routes/index");
+/**
+ * 기능별 Router를 추가합니다.
+ */
+var indexRouter = require("./routes/index.route");
 var usersRouter = require("./routes/users");
+
+const authRouter = require("./routes/auth.route");
 
 var app = express();
 
@@ -20,18 +30,19 @@ app.set("view engine", "ejs");
 
 app.use(logger("dev"));
 app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
 /**
- * body-parser가 한글을 정상적으로 처리할 수 있게끔 만드는 코드입니다
+ * body-parser가 한글을 정상적으로 처리할 수 있게끔 만드는 코드
  */
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
+app.use("/auth", authRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

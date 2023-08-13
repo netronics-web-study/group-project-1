@@ -2,7 +2,7 @@ var express = require("express");
 var router = express.Router();
 
 /*Imports modules from controller files */
-const ctrl = require("./control/control.index");
+const ctrl = require("./control/index.control");
 
 /* GET home page. */
 router.get("/", ctrl.rend.index);

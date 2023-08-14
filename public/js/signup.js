@@ -6,8 +6,6 @@ const pw1 = document.getElementById("pw1");
 const pw2 = document.getElementById("pw2");
 
 function is_pw_valid() {
-    // 패스워드가 똑같이 작성되었는지 확인
-
     if (pw1.value === pw2.value) {
         return true;
     } else {
@@ -16,8 +14,6 @@ function is_pw_valid() {
 }
 
 function on_pw_error() {
-    // 패스워드가 오류임을 밝힘
-
     alert("패스워드를 다시 입력해주세요.");
     pw1.value = "";
     pw2.value = "";
@@ -56,9 +52,7 @@ function is_id_valid() {
         });
 }
 
-// 각 입력 필드의 유효성 검사 함수
 function is_valid() {
-    // 각 입력 필드에 대한 유효성 검사
     if (!is_id_valid()) {
         alert("아이디 중복 체크를 먼저 해주세요.");
     }

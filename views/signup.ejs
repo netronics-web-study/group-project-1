@@ -2,51 +2,54 @@
 <html lang="ko">
     <head>
         <title>회원가입</title>
-        <link rel="stylesheet" href="css.css" />
+        <link rel="stylesheet" href="stylesheets/signup.css" />
         <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@700&display=swap" rel="stylesheet" />
     </head>
     <body>
-        <div class="background">
-            <div class="wrapper">
-                <div class="title">
-                    <div>네트로닉스 회원가입</div>
+        <header>
+            <div class="background">
+                <div class="wrapper">
+                    <div class="title">
+                        <div>네트로닉스 회원가입</div>
+                    </div>
                 </div>
-                <div class="profile__input">
-                    <input
-                        oninput="is_valid"
-                        id="user_id"
-                        class="input_text"
-                        type="text"
-                        placeholder="아이디를 입력해 주세요."
-                    />
-                    <button id="id_valid_check">아이디 중복 체크</button>
-                    <p id="result_message" class="hidden"></p>
-                    <input
-                        oninput="is_valid"
-                        id="name"
-                        class="input_text"
-                        type="text"
-                        placeholder="이름을 입력해 주세요."
-                    />
-                    <input
-                        oninput="is_valid"
-                        id="pw1"
-                        class="input_text"
-                        type="password"
-                        placeholder="비밀번호를 입력해 주세요."
-                    />
-                    <input
-                        oninput="is_valid"
-                        id="pw2"
-                        class="input_text"
-                        type="password"
-                        placeholder="비밀번호를 다시 입력해 주세요."
-                    />
-                </div>
-                <hr />
-                <button id="submit" <% if (!isValid) { %>disabled<% } %> >가입하기</button>
             </div>
+        </header>
+
+        <div class="profile__input">
+            <p></p>
+            <input
+                oninput="is_valid()"
+                id="user_id"
+                class="input_text"
+                type="text"
+                placeholder="아이디를 입력해 주세요."
+            />
+            <button id="id_valid_check">아이디 중복 체크</button>
+            <p id="result_message" class="hidden"></p>
+            <input oninput="is_valid()" id="name" class="input_text" type="text" placeholder="이름을 입력해 주세요." />
+            <p>
+                <input
+                    oninput="is_valid()"
+                    id="pw1"
+                    class="input_text"
+                    type="password"
+                    placeholder="비밀번호를 입력해 주세요."
+                />
+                <input
+                    oninput="is_valid()"
+                    id="pw2"
+                    class="input_text"
+                    type="password"
+                    placeholder="비밀번호를 다시 입력해 주세요."
+                />
+            </p>
         </div>
-        <script src="/routes/signup.js"></script>
+
+        <hr />
+
+        <button id="submit">가입하기</button>
+
+        <script src="js/signup.js"></script>
     </body>
 </html>

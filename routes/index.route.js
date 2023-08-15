@@ -1,6 +1,8 @@
 var express = require("express");
 var router = express.Router();
 
+const { token } = require("../resources/jwt_management");
+
 /*Imports modules from controller files */
 const ctrl = require("./control/index.control");
 

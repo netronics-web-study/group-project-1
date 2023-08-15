@@ -4,10 +4,13 @@ var path = require("path");
 var cookieParser = require("cookie-parser");
 var logger = require("morgan");
 
+require("dotenv").config();
+
 /**
  * 호스트 컴퓨터의 mongodb를 사용합니다
  */
-require("./helpers/init_mongodb");
+require("./resources/init_mongodb");
+//require("./resources/keygen");
 
 /**
  * body-parser: 클라이언트의 request로부터 body(실제 사용자가 전달하고자 한 정보, ex. 로그인 정보)를 추출하는 module
@@ -18,7 +21,7 @@ const bodyParser = require("body-parser");
  * 기능별 Router를 추가합니다.
  */
 var indexRouter = require("./routes/index.route");
-var usersRouter = require("./routes/users");
+var usersRouter = require("./routes/users.route");
 
 const authRouter = require("./routes/auth.route");
 

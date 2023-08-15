@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
 mongoose
-  .connect("mongodb://127.0.0.1:27017", { dbName: process.env.DB_NAME })
+  .connect(process.env.MONGODB, { dbName: process.env.DB_NAME })
   .then(() => {
     console.log("mongodb connected");
   })

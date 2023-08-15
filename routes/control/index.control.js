@@ -1,7 +1,7 @@
 const rend = {
   //Route to main index
   index: function (req, res, next) {
-    res.render("index", { title: "네트로닉스" });
+    res.render("index(ar)", { title: "네트로닉스" });
   },
 
   //Route to sign-up page

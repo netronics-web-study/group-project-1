@@ -1,6 +1,6 @@
-//
 const user_id = document.getElementById("user_id");
 const pw = document.getElementById("pw");
+const rememberCheckbox = document.getElementById("remember_id");
 
 function login() {
     if (user_id.value !== "" && pw.value !== "") {
@@ -34,23 +34,26 @@ function login() {
 }
 
 function remember_id() {
-    if (user_id.value !== "") {
+    if (rememberCheckbox.checked && user_id.value !== "") {
         localStorage.setItem("remembered_id", user_id.value);
         alert("아이디가 저장되었습니다.");
     } else {
-        alert("아이디를 입력해주세요.");
+        localStorage.removeItem("remembered_id");
+        alert("아이디 저장이 취소되었습니다.");
     }
 }
-//아이디 로드
+
+// 아이디 로드
 function load_id() {
     const remembered_id = localStorage.getItem("remembered_id");
     if (remembered_id != null) {
         user_id.value = remembered_id;
+        rememberCheckbox.checked = true;
     }
 }
 
 // 페이지 로드 시 저장된 아이디 불러오기
 window.addEventListener("load", load_id);
 
-document.getElementById("remember_id").addEventListener("click", remember_id);
+document.getElementById("remember_id").addEventListener("change", remember_id);
 document.getElementById("submit").addEventListener("click", login);

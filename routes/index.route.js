@@ -15,7 +15,7 @@ router.get("/", ctrl.rend.index);
 router.get("/signup", ctrl.rend.signup);
 
 /**
- * If GET request arrived => Route to signup page
+ * If GET request arrived => Route to signin page
  */
 router.get("/signin", ctrl.rend.signin);
 

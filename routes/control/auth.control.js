@@ -28,13 +28,17 @@ const process = {
   idValidity: async (req, res, next) => {
     try {
       console.log(req.body.userID);
-      const result = await authSchema.validateAsync(req.body);
 
-      const doesExistID = await user.findOne({ userID: result.body.userID });
+      const doesExistID = await user.findOne({ userID: req.body.userID });
       if (doesExistID) {
         res.send({ success: false });
-        console.log("중복된 아이디 확인");
       } else {
+        const tempUser = {
+          userID: req.body.userID,
+          name: "temporaryUserName",
+          password: "123456",
+        };
+        await authSchema.validateAsync(tempUser);
         res.send({ success: true });
       }
     } catch (error) {

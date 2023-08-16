@@ -26,7 +26,8 @@ function is_id_valid() {
         headers: {
             "Content-Type": "application/json",
         },
-        body: JSON.stringify({ user_id: userInput }),
+
+        body: JSON.stringify({ userID: userInput }),
     })
         .then((response) => response.json())
         .then((data) => {
@@ -76,8 +77,8 @@ function deleteInput() {
 function on_valid(user_id, user_name, password) {
     if (is_valid()) {
         const req = {
-            user_id: user_id.value,
-            user_name: user_name.value,
+            userID: user_id.value,
+            name: user_name.value,
             password: password.value,
         };
 

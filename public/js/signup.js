@@ -113,4 +113,5 @@ function registerUser() {
     }
 }
 document.getElementById("id_valid_check").addEventListener("click", is_id_valid);
+//click 추가
 document.getElementById("submit").addEventListener("click", registerUser);

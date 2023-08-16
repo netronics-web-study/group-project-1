@@ -32,7 +32,7 @@ function is_id_valid() {
         .then((response) => response.json())
         .then((data) => {
             const resultMessage = document.getElementById("result_message");
-            if (data.success) {
+            if (data.body.success) {
                 resultMessage.classList.remove(HIDDEN_CLASSNAME);
                 resultMessage.textContent = "사용 가능한 아이디입니다";
                 resultMessage.style.color = "green";
@@ -82,7 +82,7 @@ function on_valid(user_id, user_name, password) {
             password: password.value,
         };
 
-        fetch("URL", {
+        fetch("http://localhost:3000/auth/resister", {
             method: "POST",
             body: JSON.stringify(req),
             headers: {

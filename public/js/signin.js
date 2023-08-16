@@ -33,4 +33,24 @@ function login() {
     }
 }
 
+function remember_id() {
+    if (user_id.value !== "") {
+        localStorage.setItem("remembered_id", user_id.value);
+        alert("아이디가 저장되었습니다.");
+    } else {
+        alert("아이디를 입력해주세요.");
+    }
+}
+//아이디 로드
+function load_id() {
+    const remembered_id = localStorage.getItem("remembered_id");
+    if (remembered_id != null) {
+        user_id.value = remembered_id;
+    }
+}
+
+// 페이지 로드 시 저장된 아이디 불러오기
+window.addEventListener("load", load_id);
+
+document.getElementById("remember_id").addEventListener("click", remember_id);
 document.getElementById("submit").addEventListener("click", login);

@@ -32,6 +32,7 @@ function login() {
         alert("아이디와 비밀번호를 입력해주세요.");
     }
 }
+
 function remember_id() {
     if (user_id.value !== "") {
         localStorage.setItem("remembered_id", user_id.value);
@@ -40,6 +41,7 @@ function remember_id() {
         alert("아이디를 입력해주세요.");
     }
 }
+//아이디 로드
 function load_id() {
     const remembered_id = localStorage.getItem("remembered_id");
     if (remembered_id != null) {

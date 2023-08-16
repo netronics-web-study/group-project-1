@@ -24,11 +24,31 @@ const process = {
       if (error.isJoi === true) error.status = 422;
       next(error);
     }
+  }, //ID 중복확인 요청의 Routing을 담당합니다
+  idValidity: async (req, res, next) => {
+    try {
+      console.log(req.body.userID);
+      const result = await authSchema.validateAsync(req.body);
+
+      const doesExistID = await user.findOne({ userID: result.body.userID });
+      if (doesExistID) {
+        res.send({ success: false });
+        console.log("중복된 아이디 확인");
+      } else {
+        res.send({ success: true });
+      }
+    } catch (error) {
+      if (error.isJoi === true) {
+        res.send({ success: false });
+      } else {
+        next(error);
+      }
+    }
   },
   //로그인 요청의 Routing을 담당합니다
   login: async function (req, res, next) {
     try {
-      const result = await authSchema.validateAsync(req.body);
+      const result = await authSchema.validateAsync(req.body.userID);
       const foundUser = await user.findOne({ userID: result.userID });
 
       if (!foundUser) {

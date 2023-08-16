@@ -14,4 +14,9 @@ router.get("/", ctrl.rend.index);
  */
 router.get("/signup", ctrl.rend.signup);
 
+/**
+ * If GET request arrived => Route to signup page
+ */
+router.get("/signin", ctrl.rend.signin);
+
 module.exports = router;

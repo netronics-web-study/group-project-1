@@ -14,6 +14,11 @@ const ctrl = require("./control/auth.control");
 router.post("/register", ctrl.process.register);
 
 /**
+ * 아이디 중복확인 요청을 처리합니다
+ */
+router.post("/idValidity", ctrl.process.idValidity);
+
+/**
  * 로그인 요청을 처리합니다
  */
 router.post("/login", ctrl.process.login);

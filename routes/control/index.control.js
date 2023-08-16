@@ -6,7 +6,12 @@ const rend = {
 
   //Route to sign-up page
   signup: function (req, res, next) {
-    res.render("signup", { title: "네트로닉스 로그인" });
+    res.render("signup", { title: "네트로닉스 회원가입" });
+  },
+
+  //Route to sign-in page
+  signin: function (req, res, next) {
+    res.render("signin", { title: "네트로닉스 로그인" });
   },
 };
 

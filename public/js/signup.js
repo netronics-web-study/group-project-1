@@ -21,7 +21,7 @@ function on_pw_error() {
 
 function is_id_valid() {
     const userInput = document.getElementById("user_id").value;
-    fetch("/check_id_validity", {
+    fetch("http://localhost:3000/auth/idValidity", {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
@@ -81,7 +81,7 @@ function on_valid(user_id, user_name, password) {
             password: password.value,
         };
 
-        fetch("서버URL", {
+        fetch("URL", {
             method: "POST",
             body: JSON.stringify(req),
             headers: {
@@ -112,5 +112,6 @@ function registerUser() {
         }
     }
 }
-
+document.getElementById("id_valid_check").addEventListener("click", is_id_valid);
+//click 추가
 document.getElementById("submit").addEventListener("click", registerUser);

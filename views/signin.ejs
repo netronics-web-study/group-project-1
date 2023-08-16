@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <title>로그인</title>
+        <link rel="stylesheet" href="stylesheets/signup.css" />
+        <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@700&display=swap" rel="stylesheet" />
+    </head>
+    <body>
+        <div class="background">
+            <div class="wrapper">
+                <nav>
+                    <div class="title">
+                        <div>네트로닉스 로그인</div>
+                    </div>
+                </nav>
+
+                <div class="profile__input">
+                    <div>
+                        <b class="user">ID</b><br />
+                        <input id="user_id" class="input_text" type="text" placeholder="아이디를 입력해 주세요." />
+                        <button id="remember_id">아이디 저장</button>
+                        <!--local storage에 아이디 저장하기-->
+                    </div>
+                    <div>
+                        <b class="user">PW</b><br />
+                        <input
+                            id="pw"
+                            class="input_text"
+                            type="password"
+                            placeholder="비밀번호를 입력해 주세요."
+                        /><br /><br />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr />
+
+        <button id="submit">로그인</button>
+
+        <script src="js/signin.js"></script>
+    </body>
+</html>

@@ -19,38 +19,39 @@ function on_pw_error() {
     pw2.value = "";
 }
 
-function is_id_valid() {
+async function is_id_valid() {
     const userInput = document.getElementById("user_id").value;
-    fetch("http://localhost:3000/auth/idValidity", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-        },
+    const resultMessage = document.getElementById("result_message");
 
-        body: JSON.stringify({ userID: userInput }),
-    })
-        .then((response) => response.json())
-        .then((data) => {
-            const resultMessage = document.getElementById("result_message");
-            if (data.body.success) {
-                resultMessage.classList.remove(HIDDEN_CLASSNAME);
-                resultMessage.textContent = "사용 가능한 아이디입니다";
-                resultMessage.style.color = "green";
-                return true;
-            } else {
-                resultMessage.classList.remove(HIDDEN_CLASSNAME);
-                resultMessage.textContent = "사용 불가능한 아이디입니다. 다른 아이디를 입력해주세요";
-                resultMessage.style.color = "red";
-                return false;
-            }
-        })
-        .catch((error) => {
-            resultMessage.classList.remove(HIDDEN_CLASSNAME);
-            resultMessage.textContent = "오류가 발생했습니다. 다시 시도해주세요";
-            resultMessage.style.color = "red";
-            console.error("Error:", error);
-            return false;
+    try {
+        const response = await fetch("http://localhost:3000/auth/idValidity", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ userID: userInput }),
         });
+
+        const data = await response.json();
+
+        if (data.success) {
+            resultMessage.classList.remove(HIDDEN_CLASSNAME);
+            resultMessage.textContent = "사용 가능한 아이디입니다";
+            resultMessage.style.color = "green";
+            return true;
+        } else {
+            resultMessage.classList.remove(HIDDEN_CLASSNAME);
+            resultMessage.textContent = "사용 불가능한 아이디입니다. 다른 아이디를 입력해주세요";
+            resultMessage.style.color = "red";
+            return false;
+        }
+    } catch (error) {
+        resultMessage.classList.remove(HIDDEN_CLASSNAME);
+        resultMessage.textContent = "오류가 발생했습니다. 다시 시도해주세요";
+        resultMessage.style.color = "red";
+        console.error("Error:", error);
+        return false;
+    }
 }
 
 function is_valid() {
@@ -66,13 +67,6 @@ function is_valid() {
     }
 }
 
-function deleteInput() {
-    user_id.value = "";
-    user_name.value = "";
-    pw1.value = "";
-    pw2.value = "";
-}
-
 // 서버로 데이터를 전송하는 함수
 function on_valid(user_id, user_name, password) {
     if (is_valid()) {
@@ -82,7 +76,7 @@ function on_valid(user_id, user_name, password) {
             password: password.value,
         };
 
-        fetch("http://localhost:3000/auth/resister", {
+        fetch("http://localhost:3000/auth/register", {
             method: "POST",
             body: JSON.stringify(req),
             headers: {
@@ -93,7 +87,7 @@ function on_valid(user_id, user_name, password) {
             .then((data) => {
                 if (data.success) {
                     alert("회원가입에 성공하였습니다.");
-                    deleteInput();
+                    window.location.href = "http://localhost:3000/signin";
                 } else {
                     alert("회원가입에 실패하였습니다.");
                 }
@@ -105,6 +99,8 @@ function on_valid(user_id, user_name, password) {
 }
 
 function registerUser() {
+    console.log(is_id_valid(), is_pw_valid());
+
     if (is_id_valid() && is_pw_valid()) {
         on_valid(user_id, user_name, pw1);
     } else {

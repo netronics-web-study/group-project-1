@@ -1,10 +1,15 @@
 const createError = require("http-errors");
 const user = require("../../models/users.model.js");
-const { authSchema } = require("../../resources/validation_schema.js");
+const {
+  authSchema,
+  userIDSchema,
+} = require("../../resources/validation_schema.js");
 const { token } = require("../../resources/jwt_management.js");
 
 const process = {
-  //회원가입 요청의 Routing을 담당합니다
+  /**
+   * 회원가입 요청의 Routing을 담당합니다
+   */
   register: async (req, res, next) => {
     try {
       const result = await authSchema.validateAsync(req.body);
@@ -17,42 +22,46 @@ const process = {
       }
       const registeredUser = new user(result);
       const savedUser = await registeredUser.save();
-      const accessToken = await token.genAccessToken(savedUser.userID);
 
-      res.send({ accessToken });
+      res.send({
+        success: true,
+      });
     } catch (error) {
       if (error.isJoi === true) error.status = 422;
       next(error);
     }
-  }, //ID 중복확인 요청의 Routing을 담당합니다
+  },
+
+  /**
+   * ID 중복확인 요청의 Routing을 담당합니다
+   */
   idValidity: async (req, res, next) => {
     try {
-      console.log(req.body.userID);
-
-      const doesExistID = await user.findOne({ userID: req.body.userID });
+      const result = await userIDSchema.validateAsync(req.body.userID);
+      const doesExistID = await user.findOne({ userID: result });
       if (doesExistID) {
-        res.send({ success: false });
+        res.send({
+          success: false,
+          message: "다른 사용자가 해당 ID를 사용중입니다",
+        });
       } else {
-        const tempUser = {
-          userID: req.body.userID,
-          name: "temporaryUserName",
-          password: "123456",
-        };
-        await authSchema.validateAsync(tempUser);
-        res.send({ success: true });
+        res.send({ success: true, message: "사용 가능한 ID입니다" });
       }
     } catch (error) {
       if (error.isJoi === true) {
-        res.send({ success: false });
+        res.send({ success: false, message: "잘못된 서식의 ID입니다" });
       } else {
         next(error);
       }
     }
   },
-  //로그인 요청의 Routing을 담당합니다
+
+  /**
+   * 로그인 요청의 Routing을 담당합니다
+   */
   login: async function (req, res, next) {
     try {
-      const result = await authSchema.validateAsync(req.body.userID);
+      const result = await authSchema.validateAsync(req.body);
       const foundUser = await user.findOne({ userID: result.userID });
 
       if (!foundUser) {
@@ -65,21 +74,47 @@ const process = {
       }
 
       const accessToken = await token.genAccessToken(foundUser.userID);
+      const refreshToken = await token.genRefreshToken(foundUser.userID);
 
-      res.send({ accessToken });
+      res.send({
+        success: true,
+        accessToken,
+        refreshToken,
+      });
     } catch (error) {
       if (error.isJoi === true)
         return next(
-          createError.BadRequest("ID 또는 비밀번호가 잘못되었습니다")
+          createError.BadRequest("ID 또는 비밀번호의 서식이 잘못되었습니다")
         );
       next(error);
     }
   },
-  //refresh-token 발행 요청의 Routing을 담당합니다
-  refreshtoken: function (req, res, next) {
-    res.send("토큰 발행 요청 감지");
+
+  /**
+   * refresh-token 발행 요청의 Routing을 담당합니다
+   */
+  refreshtoken: async function (req, res, next) {
+    try {
+      const { refreshToken } = req.body;
+
+      if (!refreshToken) {
+        throw createError.BadRequest();
+      }
+
+      const userID = await token.verifyRefreshToken(refreshToken);
+
+      const resAccessToken = await token.genAccessToken(userID);
+      const resRefreshToken = await token.genRefreshToken(userID);
+
+      res.send({ accessToken: resAccessToken, refreshToken: resRefreshToken });
+    } catch (error) {
+      next(error);
+    }
   },
-  //로그아웃 요청의 Routing을 담당합니다
+
+  /**
+   * 로그아웃 요청의 Routing을 담당합니다
+   */
   logout: function (req, res, next) {
     res.send("로그아웃 요청 감지");
   },

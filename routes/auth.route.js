@@ -5,7 +5,6 @@
 var express = require("express");
 var router = express.Router();
 
-/*Imports modules from controller files */
 const ctrl = require("./control/auth.control");
 
 /**

@@ -3,13 +3,16 @@ const pw = document.getElementById("pw");
 const rememberCheckbox = document.getElementById("remember_id");
 
 function login() {
+    const user_id = document.getElementById("user_id");
+    const pw = document.getElementById("pw");
+
     if (user_id.value !== "" && pw.value !== "") {
         const req = {
-            user_id: user_id.value,
+            userID: user_id.value,
             password: pw.value,
         };
 
-        fetch("URL", {
+        fetch("http://localhost:3000/auth/login", {
             method: "POST",
             body: JSON.stringify(req),
             headers: {

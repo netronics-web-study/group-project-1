@@ -1,7 +1,7 @@
 const user_id = document.getElementById("user_id");
 const pw = document.getElementById("pw");
 const rememberCheckbox = document.getElementById("remember_id");
-/*
+
 function saveToken(accessToken, refreshToken) {
     localStorage.setItem("accessToken", accessToken);
     localStorage.setItem("refreshToken", refreshToken);
@@ -10,7 +10,7 @@ function loadTokens() {
     const accessToken = localStorage.getItem("accessToken");
     const refreshToken = localStorage.getItem("refreshToken");
 }
-*/
+
 function login() {
     const user_id = document.getElementById("user_id");
     const pw = document.getElementById("pw");
@@ -36,8 +36,7 @@ function login() {
                     saveToken(data.accessToken, data.refreshToken);
                     loadTokens();
                     if (accessToken != null && refreshToken != null) {
-                        // 로그인 된 페이지로 이동
-                        authWithToken(accessToken);
+                        window.location.href = "http://localhost:3000";
                     }
                 } else {
                     alert("로그인에 실패하였습니다. 아이디와 비밀번호를 확인해주세요.");

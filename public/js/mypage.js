@@ -48,18 +48,22 @@ function updateUserInfo() {
             console.error("Error 발생");
         });
 }
-
+//비동기 함수로 변경
 //서버로부터 유저 정보 가져오기
-function requestUserInfo(token) {
+function requestUserInfo(accessToken) {
     fetch("http://localhost:3000/mypage", {
         method: "GET",
         headers: {
-            Authorization: `Bearer ${token}`,
+            accessToken: accessToke,
         },
     })
         .then((response) => response.json())
         .then((data) => {
-            if (data.success) {
+            //accass token이 만료 되었으면
+            if ((!data, success)) {
+                //accessToken, refreshToken 전송 및 재수신 로직
+                //새로운토근 로컬 스토레지에 저장
+            } else if (data.success) {
                 displayUserInfo(data.userInfo);
             } else {
                 alert("유저 정보를 가져오는 데 실패하였습니다.");

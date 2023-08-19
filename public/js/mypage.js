@@ -28,7 +28,7 @@ function updateUserInfo() {
         password: newPw1,
     };
 
-    fetch("http://localhost:3000/mypage/update", {
+    fetch("http://localhost:3000/users/mypage/update", {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
@@ -51,7 +51,7 @@ function updateUserInfo() {
 //비동기 함수로 변경
 //서버로부터 유저 정보 가져오기
 function requestUserInfo(accessToken) {
-    fetch("http://localhost:3000/mypage", {
+    fetch("http://localhost:3000/users/mypage", {
         method: "GET",
         headers: {
             accessToken: accessToke,

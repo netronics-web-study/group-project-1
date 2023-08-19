@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <title>마이페이지</title>
+        <link rel="stylesheet" href="stylesheets/signup.css" />
+        <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@700&display=swap" rel="stylesheet" />
+    </head>
+    <body>
+        <div class="background">
+            <div class="wrapper">
+                <nav>
+                    <div class="title">
+                        <div>네트로닉스 마이페이지</div>
+                    </div>
+                </nav>
+
+                <div class="profile__input">
+                    <div>
+                        <b class="user">ID</b><br />
+                        <p id="user_id"></p>
+                    </div>
+                    <div>
+                        <b class="user">Name</b><br />
+                        <input id="name" class="input_text" type="text" />
+                    </div>
+                    <div>
+                        <b class="user">PW</b><br />
+                        <input id="pw1" class="input_text" type="password" /> <br /><br />
+                    </div>
+                    <div>
+                        <b class="user">PW 확인</b><br />
+                        <input
+                            id="pw2"
+                            class="input_text"
+                            type="password"
+                            placeholder="새로운 비밀번호를 입력해주세요"
+                        /><br /><br />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr />
+        <button id="update_button">회원정보 수정</button>
+        <button id="main_page_button">메인 페이지로 가기</button>
+        <script src="js/mypage.js"></script>
+    </body>
+</html>

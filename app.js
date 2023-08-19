@@ -7,9 +7,10 @@ var logger = require("morgan");
 require("dotenv").config();
 
 /**
- * 호스트 컴퓨터의 mongodb를 사용합니다
+ * 호스트 컴퓨터의 mongodb와 redis를 사용합니다
  */
 require("./resources/init_mongodb");
+//require("./resources/init_redis");
 //require("./resources/keygen");
 
 /**

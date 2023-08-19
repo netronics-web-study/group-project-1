@@ -10,7 +10,7 @@ const token = {
       const payload = {};
       const secret = process.env.ACCESS_TOKEN_SECRET;
       const options = {
-        expiresIn: "10m",
+        expiresIn: "1d",
         issuer: "netronics.com",
         audience: userID,
       };

@@ -54,7 +54,7 @@ function requestUserInfo(accessToken) {
     fetch("http://localhost:3000/users/mypage", {
         method: "GET",
         headers: {
-            accessToken: accessToke,
+            accessToken: accessToken,
         },
     })
         .then((response) => response.json())

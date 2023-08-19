@@ -1,7 +1,13 @@
 const user_id = document.getElementById("user_id");
 const pw = document.getElementById("pw");
 const rememberCheckbox = document.getElementById("remember_id");
+//*
+function saveToken(accessToken, refreshToken) {
+    localStorage.setItem("accessToken", accessToken);
+    localStorage.setItem("refreshToken", refreshToken);
+}
 
+//*/
 function login() {
     const user_id = document.getElementById("user_id");
     const pw = document.getElementById("pw");
@@ -23,7 +29,13 @@ function login() {
             .then((data) => {
                 if (data.success) {
                     alert("로그인에 성공하였습니다.");
-                    // 로그인 이후 동작 미구현
+                    //토큰을 받아서 로컬 스토레지에 저장하는 함수
+                    saveToken(data.accessToken, data.refreshToken);
+                    loadTokens();
+                    if (accessToken != null && refreshToken != null) {
+                        // 로그인 된 페이지로 이동
+                        authWithToken(accessToken);
+                    }
                 } else {
                     alert("로그인에 실패하였습니다. 아이디와 비밀번호를 확인해주세요.");
                 }
@@ -37,7 +49,11 @@ function login() {
 }
 
 function remember_id() {
-    if (rememberCheckbox.checked && user_id.value !== "") {
+    //아이디 비었을때 로직 추가
+    if (user_id.value === "") {
+        rememberCheckbox.checked = false;
+        alert("아이디를 입력해주세요");
+    } else if (rememberCheckbox.checked && user_id.value !== "") {
         localStorage.setItem("remembered_id", user_id.value);
         alert("아이디가 저장되었습니다.");
     } else {

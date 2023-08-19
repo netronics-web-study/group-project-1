@@ -6,6 +6,7 @@ var express = require("express");
 var router = express.Router();
 
 const ctrl = require("./control/auth.control");
+const { token } = require("../resources/jwt_management.js");
 
 /**
  * 회원가입 요청을 처리합니다
@@ -31,5 +32,10 @@ router.post("/refresh-token", ctrl.process.refreshtoken);
  * 로그아웃 요청을 처리합니다
  */
 router.delete("/logout", ctrl.process.logout);
+
+/**
+ * 회원정보 수정 요청을 처리합니다
+ */
+router.post("/update", token.verifyAccessToken, ctrl.process.update);
 
 module.exports = router;

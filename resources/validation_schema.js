@@ -1,19 +1,25 @@
 const Joi = require("joi");
 
-const userIDSchema = Joi.string()
+const authUserIDSchema = Joi.string()
   .alphanum()
   .lowercase()
   .min(6)
   .max(20)
   .required();
 
+const authUserNameSchema = Joi.string();
+
+const authUserPasswordSchema = Joi.string().min(6).required();
+
 const authSchema = Joi.object({
-  userID: userIDSchema,
-  name: Joi.string(),
-  password: Joi.string().min(6).required(),
+  userID: authUserIDSchema,
+  name: authUserNameSchema,
+  password: authUserPasswordSchema,
 });
 
 module.exports = {
   authSchema,
-  userIDSchema,
+  authUserIDSchema,
+  authUserNameSchema,
+  authUserPasswordSchema,
 };

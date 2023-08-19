@@ -85,13 +85,26 @@ const process = {
         accessToken,
       });
 
-      const savedPseudoSession = await newPseudoSession.save();
-
-      res.send({
-        success: true,
-        accessToken,
-        refreshToken,
+      const wasRunningSession = await pseudoSession.deleteMany({
+        userID: foundUser.userID,
       });
+
+      await newPseudoSession.save();
+
+      if (wasRunningSession.deletedCount) {
+        res.send({
+          success: true,
+          accessToken,
+          refreshToken,
+          message: "기존 세션을 종료하고 로그인합니다",
+        });
+      } else {
+        res.send({
+          success: true,
+          accessToken,
+          refreshToken,
+        });
+      }
     } catch (error) {
       if (error.isJoi === true)
         return next(
@@ -108,17 +121,43 @@ const process = {
     try {
       const { accessToken, refreshToken } = req.body;
 
-      if (
-        !refreshToken
-        //|| !accessToken
-      ) {
+      if (!refreshToken || !accessToken) {
         throw createError.BadRequest();
       }
 
       const userID = await token.verifyRefreshToken(refreshToken);
 
+      const activeSession = await pseudoSession.findOne({
+        userID: userID,
+      });
+
+      if (!activeSession) {
+        throw createError.Unauthorized();
+      }
+
+      const verifiedSession = await activeSession.isValidTokens(
+        refreshToken,
+        accessToken
+      );
+
+      console.log(verifiedSession);
+
+      if (!verifiedSession) {
+        await activeSession.deleteOne();
+        throw createError.Unauthorized();
+      }
+
+      await activeSession.deleteOne();
       const resAccessToken = await token.genAccessToken(userID);
       const resRefreshToken = await token.genRefreshToken(userID);
+
+      const newPseudoSession = new pseudoSession({
+        userID: userID,
+        refreshToken: resRefreshToken,
+        accessToken: resAccessToken,
+      });
+
+      await newPseudoSession.save();
 
       res.send({ accessToken: resAccessToken, refreshToken: resRefreshToken });
     } catch (error) {
@@ -153,19 +192,22 @@ const process = {
     try {
       const result = await authSchema.validateAsync(req.body);
 
-      const doesExistID = await user.updateOne(
-        { userID: req.payload.aud },
-        {
-          name: req.body.name,
-          password: req.body.password,
-        }
-      );
-      console.log(doesExistID);
+      console.log(req.payload.aud);
+
+      const doesExistID = await user.findOneAndDelete({
+        userID: req.payload.aud,
+      });
       if (!doesExistID) {
         throw createError.InternalServerError(
           "해당하는 ID의 유저를 찾지 못하였습니다"
         );
       }
+      const updatedUser = new user({
+        userID: req.payload.aud,
+        name: req.body.name,
+        password: req.body.password,
+      });
+      await updatedUser.save();
 
       res.send({
         success: true,

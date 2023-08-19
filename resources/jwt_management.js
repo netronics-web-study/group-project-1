@@ -29,8 +29,11 @@ const token = {
    *Access Token의 유효성을 검증합니다
    */
   verifyAccessToken: (req, res, next) => {
-    if (!req.headers["authorization"])
+    if (!req.headers["authorization"]) {
+      console.log("요청오류발생");
       return next(createError.Unauthorized("잘못된 요청입니다"));
+    }
+
     const authHeader = req.headers["authorization"];
     const bearerToken = authHeader.split(" ");
     const token = bearerToken[1];
@@ -39,9 +42,11 @@ const token = {
       if (error) {
         const message =
           error.name === "JsonWebTokenError" ? "Unauthorized" : error.message;
+        console.log(message);
         return next(createError.Unauthorized(message));
       }
       req.payload = payload;
+      console.log(req.payload);
       next();
     });
   },

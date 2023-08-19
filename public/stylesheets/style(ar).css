@@ -67,3 +67,7 @@ main .title button:hover {
     background: transparent;
     color: black;
 }
+
+.hidden {
+    display: none;
+}

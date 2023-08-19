@@ -30,7 +30,7 @@ fetch("http://localhost:3000/auth/", {
     });
 
 // 로그아웃 기능 구현하기
-function logout(token) {
+function logout() {
     // 1. 로컬 스토리지에 저장된 토큰 삭제
     localStorage.removeItem("accessToken");
     localStorage.removeItem("refreshToken");
@@ -39,7 +39,7 @@ function logout(token) {
     fetch("http://localhost:3000/auth/logout", {
         method: "DELETE",
         headers: {
-            Authorization: `Bearer ${token}`,
+            refreshToken: refreshToken,
         },
     })
         .then((response) => response.text())

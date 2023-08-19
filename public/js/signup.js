@@ -87,7 +87,7 @@ function on_valid(user_id, user_name, password) {
             .then((data) => {
                 if (data.success) {
                     alert("회원가입에 성공하였습니다.");
-                    window.location.href = "http://localhost:3000/signin";
+                    window.location.href = "http://localhost:3000/login";
                 } else {
                     alert("회원가입에 실패하였습니다.");
                 }

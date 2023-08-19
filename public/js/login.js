@@ -34,10 +34,7 @@ function login() {
                     alert("로그인에 성공하였습니다.");
                     //토큰을 받아서 로컬 스토레지에 저장하는 함수
                     saveToken(data.accessToken, data.refreshToken);
-                    loadTokens();
-                    if (accessToken != null && refreshToken != null) {
-                        window.location.href = "http://localhost:3000";
-                    }
+                    window.location.href = "http://localhost:3000";
                 } else {
                     alert("로그인에 실패하였습니다. 아이디와 비밀번호를 확인해주세요.");
                 }

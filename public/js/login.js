@@ -1,13 +1,16 @@
 const user_id = document.getElementById("user_id");
 const pw = document.getElementById("pw");
 const rememberCheckbox = document.getElementById("remember_id");
-//*
+/*
 function saveToken(accessToken, refreshToken) {
     localStorage.setItem("accessToken", accessToken);
     localStorage.setItem("refreshToken", refreshToken);
 }
-
-//*/
+function loadTokens() {
+    const accessToken = localStorage.getItem("accessToken");
+    const refreshToken = localStorage.getItem("refreshToken");
+}
+*/
 function login() {
     const user_id = document.getElementById("user_id");
     const pw = document.getElementById("pw");

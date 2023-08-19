@@ -8,6 +8,12 @@ var router = express.Router();
 const ctrl = require("./control/auth.control");
 const { token } = require("../resources/jwt_management.js");
 
+router.get("/", token.verifyAccessToken, async function (req, res, next) {
+  res.send({
+    success: true,
+  });
+});
+
 /**
  * 회원가입 요청을 처리합니다
  */

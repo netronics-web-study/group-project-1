@@ -63,6 +63,10 @@ function logout() {
             if (data.success) {
                 // 2. 로그아웃 완료 후 처리
                 // 로컬 스토리지에 저장된 토큰 삭제
+                signup.classList.add(HIDDEN_CLASSNAME);
+                loginButton.classList.add(HIDDEN_CLASSNAME);
+                myPage.classList.remove(HIDDEN_CLASSNAME);
+                logoutButton.classList.remove(HIDDEN_CLASSNAME);
                 localStorage.removeItem("accessToken");
                 localStorage.removeItem("refreshToken");
                 alert("로그아웃 되었습니다.");

@@ -19,9 +19,10 @@ const pseudoSessionSchema = new Schema({
 
 pseudoSessionSchema.pre("save", async function (next) {
   try {
-    const salt = await bcrypt.genSalt(10);
-    const hashedRefreshToken = await bcrypt.hash(this.refreshToken, salt);
-    const hashedAccessToken = await bcrypt.hash(this.accessToken, salt);
+    const salt1 = await bcrypt.genSalt(10);
+    const salt2 = await bcrypt.genSalt(10);
+    const hashedRefreshToken = await bcrypt.hash(this.refreshToken, salt1);
+    const hashedAccessToken = await bcrypt.hash(this.accessToken, salt2);
     this.refreshToken = hashedRefreshToken;
     this.accessToken = hashedAccessToken;
   } catch (error) {
@@ -35,8 +36,8 @@ pseudoSessionSchema.methods.isValidTokens = async function (
 ) {
   try {
     if (
-      bcrypt.compare(refreshToken, this.refreshToken) &&
-      bcrypt.compare(accessToken, this.accessToken)
+      bcrypt.compareSync(refreshToken, this.refreshToken) &&
+      bcrypt.compareSync(accessToken, this.accessToken)
     ) {
       return true;
     } else return false;

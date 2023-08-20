@@ -1,18 +1,16 @@
-/**
- * 회원가입 홈페이지에서의 Routing을 담당합니다
- */
-
 var express = require("express");
 var router = express.Router();
 
 const ctrl = require("./control/auth.control");
+const accessCtrl = require("./control/access.control");
 const { token } = require("../resources/jwt_management.js");
 
-router.get("/", token.verifyAccessToken, async function (req, res, next) {
-  res.send({
-    success: true,
-  });
-});
+router.get(
+  "/",
+  token.verifyAccessToken,
+  accessCtrl.findOut.isAuthUser,
+  accessCtrl.findOut.whatProblemIs
+);
 
 /**
  * 회원가입 요청을 처리합니다

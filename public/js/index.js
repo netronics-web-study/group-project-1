@@ -9,6 +9,7 @@ const accessToken = localStorage.getItem("accessToken");
 const refreshToken = localStorage.getItem("refreshToken");
 
 // accessToken 을 서버로 보내 인증을 받음
+// accessToken 이 유효할 때는 그대로 진행, 유효하지 않으면 refreshToken 으로 인증 시도
 fetch("http://localhost:3000/auth/", {
     method: "GET",
     headers: {
@@ -21,8 +22,13 @@ fetch("http://localhost:3000/auth/", {
             myPage.classList.remove(HIDDEN_CLASSNAME);
             logoutButton.classList.remove(HIDDEN_CLASSNAME);
         } else {
-            signup.classList.remove(HIDDEN_CLASSNAME);
-            loginButton.classList.remove(HIDDEN_CLASSNAME);
+            if (refreshToken) {
+                myPage.classList.remove(HIDDEN_CLASSNAME);
+                logoutButton.classList.remove(HIDDEN_CLASSNAME);
+            } else {
+                signup.classList.remove(HIDDEN_CLASSNAME);
+                loginButton.classList.remove(HIDDEN_CLASSNAME);
+            }
         }
     })
     .catch((error) => {
@@ -42,7 +48,7 @@ function logout() {
             refreshToken: refreshToken,
         },
     })
-        .then((response) => response.text())
+        .then((response) => response.json())
         .then((data) => {
             if (data.success) {
                 // 3. 로그아웃 완료 후 처리

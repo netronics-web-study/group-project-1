@@ -48,21 +48,51 @@ function updateUserInfo() {
             console.error("Error 발생");
         });
 }
-//비동기 함수로 변경
-//서버로부터 유저 정보 가져오기
+// 서버로부터 유저 정보 가져오기
 function requestUserInfo(accessToken) {
     fetch("http://localhost:3000/users/mypage", {
         method: "GET",
         headers: {
-            accessToken: accessToken,
+            Authorization: `Bearer ${accessToken}`,
         },
     })
         .then((response) => response.json())
         .then((data) => {
-            //accass token이 만료 되었으면
-            if ((!data, success)) {
-                //accessToken, refreshToken 전송 및 재수신 로직
-                //새로운토근 로컬 스토레지에 저장
+            // access token이 만료되었으면
+            if (!data.success) {
+                const refreshToken = localStorage.getItem("refreshToken");
+                const refreshTokenData = {
+                    refreshToken: refreshToken,
+                };
+
+                // 새로운 access token 및 refresh token 요청 및 갱신 로직
+                fetch("http://localhost:3000/auth/refresh-token", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify(refreshTokenData),
+                })
+                    .then((response) => response.json())
+                    .then((refreshData) => {
+                        if (refreshData.success) {
+                            // 새로운 access token과 refresh token을 받아옴
+                            const newAccessToken = refreshData.accessToken;
+                            const newRefreshToken = refreshData.refreshToken;
+
+                            // 로컬 스토리지에 새로운 access token과 refresh token을 저장
+                            localStorage.setItem("accessToken", newAccessToken);
+                            localStorage.setItem("refreshToken", newRefreshToken);
+
+                            // 유저 정보 재요청
+                            requestUserInfo(newAccessToken);
+                        } else {
+                            alert("토큰 재발급에 실패했습니다.");
+                        }
+                    })
+                    .catch((error) => {
+                        console.error("에러가 발생하였습니다.", error);
+                    });
             } else if (data.success) {
                 displayUserInfo(data.userInfo);
             } else {
@@ -70,14 +100,14 @@ function requestUserInfo(accessToken) {
             }
         })
         .catch((error) => {
-            console.error("Error 발생");
+            console.error("Error 발생", error);
         });
 }
 
 // 버튼 클릭 이벤트 처리
 document.getElementById("update_button").addEventListener("click", updateUserInfo);
 document.getElementById("main_page_button").addEventListener("click", () => {
-    window.location.href = "http://localhost:3000/user";
+    window.location.href = "http://localhost:3000";
 });
 
 // 페이지 로딩 시 유저 정보 가져오기

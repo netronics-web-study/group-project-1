@@ -23,8 +23,22 @@ fetch("http://localhost:3000/auth/", {
             logoutButton.classList.remove(HIDDEN_CLASSNAME);
         } else {
             if (refreshToken) {
-                myPage.classList.remove(HIDDEN_CLASSNAME);
-                logoutButton.classList.remove(HIDDEN_CLASSNAME);
+                fetch("http://localhost:3000/auth/", {
+                    method: "GET",
+                    headers: {
+                        Authorization: `Bearer ${refreshToken}`,
+                    },
+                })
+                    .then((response) => response.json())
+                    .then((data) => {
+                        if (data.success) {
+                            myPage.classList.remove(HIDDEN_CLASSNAME);
+                            logoutButton.classList.remove(HIDDEN_CLASSNAME);
+                        }
+                    })
+                    .catch((error) => {
+                        console.error("Error 발생");
+                    });
             } else {
                 signup.classList.remove(HIDDEN_CLASSNAME);
                 loginButton.classList.remove(HIDDEN_CLASSNAME);

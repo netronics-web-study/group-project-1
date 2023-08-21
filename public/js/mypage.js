@@ -78,7 +78,7 @@ function requestNewToken(refreshToken) {
         });
 }
 // 서버로부터 유저 정보 가져오기
-function requestUserInfo(accessToken) {
+function requestUserInfo() {
     fetch("http://localhost:3000/users/mypage", {
         method: "GET",
         headers: {
@@ -115,4 +115,4 @@ document.getElementById("main_page_button").addEventListener("click", () => {
 });
 
 // 페이지 로딩 시 유저 정보 가져오기
-requestUserInfo(accessToken);
+requestUserInfo();

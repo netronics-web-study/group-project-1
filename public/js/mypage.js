@@ -50,13 +50,16 @@ function updateUserInfo() {
             console.error("Error 발생");
         });
 }
-function requestNewToken(refreshToken) {
+function requestNewToken() {
     // 새로운 access token 및 refresh token 요청 및 갱신 로직
     fetch("http://localhost:3000/auth/refresh-token", {
-        method: "GET",
+        method: "POST",
         headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${accessToken}`,
+        },
+        body: {
+            accessToken,
+            refreshToken,
         },
     })
         .then((response) => response.json())

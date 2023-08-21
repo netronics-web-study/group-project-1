@@ -34,7 +34,7 @@ function updateUserInfo() {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
+            Authorization: `Bearer ${accessToken}`,
         },
         body: JSON.stringify(updatedInfo),
     })
@@ -53,11 +53,11 @@ function updateUserInfo() {
 function requestNewToken(refreshToken) {
     // 새로운 access token 및 refresh token 요청 및 갱신 로직
     fetch("http://localhost:3000/auth/refresh-token", {
-        method: "POST",
+        method: "GET",
         headers: {
             "Content-Type": "application/json",
+            Authorization: `Bearer ${accessToken}`,
         },
-        refreshToken: refreshToken,
     })
         .then((response) => response.json())
         .then((data) => {

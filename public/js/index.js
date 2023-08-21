@@ -54,7 +54,7 @@ function logout() {
     // 1. 서버에 로그아웃 요청
     fetch("http://localhost:3000/auth/logout", {
         method: "DELETE",
-        headers: {
+        body: {
             refreshToken: refreshToken,
         },
     })

@@ -82,7 +82,7 @@ function requestUserInfo() {
     fetch("http://localhost:3000/users/mypage", {
         method: "GET",
         headers: {
-            accessToken: accessToken,
+            Authorization: `Bearer ${accessToken}`,
         },
     })
         .then((response) => response.json())

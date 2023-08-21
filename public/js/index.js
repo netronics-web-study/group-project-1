@@ -54,8 +54,9 @@ function logout() {
     // 1. 서버에 로그아웃 요청
     fetch("http://localhost:3000/auth/logout", {
         method: "DELETE",
-        body: {
-            refreshToken: refreshToken,
+        body: JSON.stringify({ refreshToken: refreshToken }),
+        headers: {
+            "Content-Type": "application/json",
         },
     })
         .then((response) => response.json())
@@ -63,10 +64,7 @@ function logout() {
             if (data.success) {
                 // 2. 로그아웃 완료 후 처리
                 // 로컬 스토리지에 저장된 토큰 삭제
-                signup.classList.add(HIDDEN_CLASSNAME);
-                loginButton.classList.add(HIDDEN_CLASSNAME);
-                myPage.classList.remove(HIDDEN_CLASSNAME);
-                logoutButton.classList.remove(HIDDEN_CLASSNAME);
+
                 localStorage.removeItem("accessToken");
                 localStorage.removeItem("refreshToken");
                 alert("로그아웃 되었습니다.");

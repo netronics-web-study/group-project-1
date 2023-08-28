@@ -4,12 +4,27 @@ var router = express.Router();
 const ctrl = require("./control/auth.control");
 const accessCtrl = require("./control/access.control");
 const { token } = require("../resources/jwt_management.js");
+const user = require("../models/users.model.js");
 
 router.get(
-  "/",
+  "/getUserInfo",
   token.verifyAccessToken,
-  accessCtrl.findOut.isAuthUser,
-  accessCtrl.findOut.whatProblemIs
+  async function (req, res, next) {
+    if (req.payload) {
+      const payload = req.payload;
+      const foundUser = await user.findOne({ userID: payload.aud });
+
+      foundUser.password = null;
+
+      res.send({
+        success: true,
+        foundUser,
+      });
+    } else {
+      return next();
+    }
+  },
+  ctrl.process.getUserInfo
 );
 
 /**

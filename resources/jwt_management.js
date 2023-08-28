@@ -10,7 +10,7 @@ const token = {
       const payload = {};
       const secret = process.env.ACCESS_TOKEN_SECRET;
       const options = {
-        expiresIn: "1d",
+        expiresIn: "5m",
         issuer: "netronics.com",
         audience: userID,
       };
@@ -30,8 +30,7 @@ const token = {
    */
   verifyAccessToken: (req, res, next) => {
     if (!req.headers["authorization"]) {
-      console.log("요청오류발생");
-      return next(createError.Unauthorized("잘못된 요청입니다"));
+      return next(createError.Unauthorized("noAccessTokenError"));
     }
 
     const authHeader = req.headers["authorization"];
@@ -42,11 +41,14 @@ const token = {
       if (error) {
         const message =
           error.name === "JsonWebTokenError" ? "Unauthorized" : error.message;
-        console.log(message);
-        return next(createError.Unauthorized(message));
+        if (error.message === "jwt expired") {
+          return next(createError.Unauthorized("expiredTokenError"));
+        } else {
+          return next(createError.Unauthorized(message));
+        }
       }
       req.payload = payload;
-      console.log(req.payload);
+      console.log(payload);
       next();
     });
   },

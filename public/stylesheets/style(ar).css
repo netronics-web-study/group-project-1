@@ -8,15 +8,14 @@ nav {
     border-radius: 5px;
 }
 
-nav .name {
+nav .title {
     text-decoration: none;
-    padding-left: 20px;
+    letter-spacing: 0.1em;
     padding-right: 20px;
-    color: white;
     font-size: 40px;
 }
 
-nav .nav_but a {
+nav a {
     text-decoration: none;
     padding-left: 20px;
     padding-right: 20px;
@@ -30,44 +29,27 @@ main {
     justify-content: center;
 }
 
-main .title {
+main .name {
     text-align: center;
 }
 
-main .title img {
-    width: 100px;
-}
-
-main .title h1 {
+main .name h1 {
     font-size: 40px;
     color: #444;
     letter-spacing: 0.2em;
     margin-bottom: 0;
 }
 
-main .title p {
+main .name p {
     margin-top: 0;
     margin-bottom: 30px;
     color: #444;
 }
 
-main .title button {
-    background: black;
-    color: white;
-    border: 2px solid white;
-    border-radius: 5px;
-    padding: 10px 30px;
-    font-size: 14px;
-    transition: 0.5s ease;
-}
-
-main .title button:hover {
-    transition: 0.5s ease;
-    border: 2px sloid black;
-    background: transparent;
-    color: black;
-}
-
 .hidden {
     display: none;
+}
+
+.custom-cursor {
+    cursor: pointer;
 }

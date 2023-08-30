@@ -217,6 +217,33 @@ const process = {
       next(error);
     }
   },
+
+  /**
+   * 회원정보 불러오기 요청의 실행을 담당합니다
+   */
+  getUserInfo: async function (error, req, res, next) {
+    if (error.status === 401) {
+      switch (error.message) {
+        case "noAccessTokenError": {
+          res.send({
+            success: false,
+            message: "로그아웃된 유저입니다",
+          });
+          break;
+        }
+        case "expiredTokenError": {
+          res.send({
+            success: false,
+            message: "Access Token 만료. 재발급 수행 후 재시도하십시오",
+          });
+          break;
+        }
+        default: {
+          console.log("대응 범위 이외의 오류");
+        }
+      }
+    }
+  },
 };
 
 module.exports = {

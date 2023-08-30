@@ -1,7 +1,6 @@
 nav {
     height: 70px;
     display: flex;
-    justify-content: center;
     align-items: center;
     margin: auto;
     background-color: black;
@@ -9,8 +8,24 @@ nav {
 }
 
 nav .title {
+    justify-content: space-between;
+    font-size: 40px;
+}
+
+nav a {
+    text-decoration: none;
+    padding-left: 20px;
+    padding-right: 20px;
+    color: white;
+}
+
+nav .subTitle {
+    justify-content: center;
+    padding-right: 170px;
+    margin: auto;
     font-size: 25px;
     color: white;
+    letter-spacing: 0.2em;
 }
 
 .name {
@@ -24,4 +39,21 @@ nav .title {
     border-radius: 5px;
     height: 30px;
     width: 300px;
+}
+
+button {
+    background: black;
+    color: white;
+    border: 2px solid white;
+    border-radius: 5px;
+    padding: 5px 20px;
+    font-size: 14px;
+    transition: 0.5s ease;
+}
+
+button:hover {
+    transition: 0.5s ease;
+    border: 2px sloid black;
+    background: transparent;
+    color: black;
 }

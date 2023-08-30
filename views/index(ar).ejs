@@ -10,17 +10,19 @@
     <body>
         <header>
             <nav>
-                <div class="name">네트로닉스</div>
+                <h1 class="title">
+                    <a href="http://localhost:3000">네트로닉스</a>
+                </h1>
                 <div class="nav_but">
                     <a id="signup" class="hidden" href="http://localhost:3000/register">회원가입</a>
                     <a id="login" class="hidden" href="http://localhost:3000/login">로그인</a>
-                    <a id="myPage" class="hidden" href="http://localhost:3000/users/mypage">마이페이지</a>
-                    <a id="logout" class="hidden" href="http://localhost:3000">로그아웃</a>
+                    <a id="myPage" class="hidden custom-cursor" onclick="requestUserInfo()">마이페이지</a>
+                    <a id="logout" class="hidden custom-cursor" onclick>로그아웃</a>
                 </div>
             </nav>
         </header>
         <main>
-            <div class="title">
+            <div class="name">
                 <h1>NETRONICS</h1>
                 <p>화이팅</p>
             </div>

@@ -225,14 +225,14 @@ const process = {
     if (error.status === 401) {
       switch (error.message) {
         case "noAccessTokenError": {
-          res.send({
+          res.status(401).send({
             success: false,
             message: "로그아웃된 유저입니다",
           });
           break;
         }
         case "expiredTokenError": {
-          res.send({
+          res.status(401).send({
             success: false,
             message: "Access Token 만료. 재발급 수행 후 재시도하십시오",
           });
@@ -240,6 +240,10 @@ const process = {
         }
         default: {
           console.log("대응 범위 이외의 오류");
+          res.status(401).send({
+            success: false,
+            message: "대응 범위 이외의 오류 발생",
+          });
         }
       }
     }

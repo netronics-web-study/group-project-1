@@ -6,6 +6,31 @@ const accessCtrl = require("./control/access.control");
 const { token } = require("../resources/jwt_management.js");
 const user = require("../models/users.model.js");
 
+/**
+ * @swagger
+ * components:
+ *    securitySchemes:
+ *      bearerAuth:
+ *        type: http
+ *        scheme: bearer
+ *        bearerFormat: JWT
+ *
+ * /auth/getUserInfo:
+ *    get:
+ *      tags:
+ *        - Authentication
+ *      summary: Access Token을 사용하여 해당하는 유저의 정보를 불러옵니다.
+ *      security:
+ *        - bearerAuth: []
+ *      responses:
+ *        200:
+ *          description: 전송된 Access Token의 유효성이 검증되었으며, 해당하는 사용자의 정보가 전송되었습니다.
+ *          content:
+ *
+ *
+ *
+ *
+ */
 router.get(
   "/getUserInfo",
   token.verifyAccessToken,
@@ -18,7 +43,12 @@ router.get(
 
       res.send({
         success: true,
-        foundUser,
+        foundUser: {
+          userID: foundUser.userID,
+          name: foundUser.name,
+          isDev: foundUser.isDev,
+          isAdmin: foundUser.isAdmin,
+        },
       });
     } else {
       return next();

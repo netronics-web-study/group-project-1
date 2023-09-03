@@ -219,7 +219,7 @@ const process = {
   },
 
   /**
-   * 회원정보 불러오기 요청의 실행을 담당합니다
+   * 회원정보 불러오기 요청의 error handling을 담당합니다
    */
   getUserInfo: async function (error, req, res, next) {
     if (error.status === 401) {

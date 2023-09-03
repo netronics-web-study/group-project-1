@@ -37,6 +37,10 @@ const token = {
     const bearerToken = authHeader.split(" ");
     const token = bearerToken[1];
 
+    if (token === "null") {
+      return next(createError.Unauthorized("noAccessTokenError"));
+    }
+
     jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (error, payload) => {
       if (error) {
         const message =

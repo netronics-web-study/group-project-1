@@ -38,6 +38,9 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
+const { swaggerUi, specs } = require("./resources/swagger");
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(specs));
+
 /**
  * body-parser가 한글을 정상적으로 처리할 수 있게끔 만드는 코드
  */

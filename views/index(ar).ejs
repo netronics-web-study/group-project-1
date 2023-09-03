@@ -5,18 +5,18 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta http-equiv="X-UA-Compatible" content="ie=edge" />
         <title>네트로닉스 홈페이지</title>
-        <link rel="stylesheet" type="text/css" href="stylesheets/style(ar).css" />
+        <link rel="stylesheet" type="text/css" href="stylesheets/index.css" />
     </head>
     <body>
         <header>
             <nav>
-                <h1 class="title">
+                <div class="title">
                     <a href="http://localhost:3000">네트로닉스</a>
-                </h1>
+                </div>
                 <div class="nav_but">
                     <a id="signup" class="hidden" href="http://localhost:3000/register">회원가입</a>
                     <a id="login" class="hidden" href="http://localhost:3000/login">로그인</a>
-                    <a id="myPage" class="hidden custom-cursor" onclick="requestUserInfo()">마이페이지</a>
+                    <a id="myPage" class="hidden custom-cursor" href="http://localhost:3000/mypage">마이페이지</a>
                     <a id="logout" class="hidden custom-cursor" onclick>로그아웃</a>
                 </div>
             </nav>

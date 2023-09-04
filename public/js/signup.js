@@ -99,8 +99,6 @@ function on_valid(user_id, user_name, password) {
 }
 
 function registerUser() {
-    console.log(is_id_valid(), is_pw_valid());
-
     if (is_id_valid() && is_pw_valid()) {
         on_valid(user_id, user_name, pw1);
     } else {
